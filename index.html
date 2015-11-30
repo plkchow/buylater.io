@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BuyLater - Get Notified When Product Price Drops</title>
+
+    <link href="https://bootswatch.com/flatly/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/jquery.sidr/1.2.1/stylesheets/jquery.sidr.light.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="preloader">
+        <div id="preloader-content">
+            <div class="logo">BuyLater</div>
+            <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+        </div>
+    </div>
+    <div id="sidr">
+        <div>BuyLater</div>
+        <div data-bind="visible: app.alertsList().length > 0">
+            <a href="#" data-bind="click: function(){app.scrollTo('#alert')}">My Alerts</a>
+        </div>
+        <div>
+            <a href="#" data-bind="click: function(){app.scrollTo('#search')}">Search for Product</a>
+        </div>
+        <div>
+            <a href="#" data-bind="click: function(){app.scrollTo('#how')}">How Does It Work?</a>
+        </div>
+        <div data-bind="visible: auth.email">
+            <a href="#" data-bind="click: auth.signout">Sign Out</a>
+        </div>
+    </div>
+    <header>
+        <div class="row">
+            <div class="col-xs-6">
+                <a id="menu" href="#"><i class="fa fa-bars"></i></a>
+                <span class="logo" style="font-size: 20px; margin-left: 10px">BuyLater</span>
+            </div>
+            <div class="col-xs-6">
+                <div class="pull-right">
+                    <small data-bind="text: auth.email"></small>
+                    <span data-bind="visible: !auth.email()"><a href="#" data-toggle="modal" data-target="#modal-login">Sign-in</a></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center" id="slogan">
+        <div class="container" style="max-width: 400px; margin: 0 auto">
+            <h3>
+                <i>Track the price of items and get notified when the price drops to your target price</i>
+            </h3>
+            <div style="padding: 20px 0 0 0">
+                <a href="#" data-bind="click: function(){app.scrollTo('#how')}">How Does It Work?</a>
+            </div>
+            <div style="padding: 20px 0 0 0">
+                <button type="button" class="btn btn-success" data-bind="click: function(){app.scrollTo('#search')}">Let's Get Started</button>
+            </div>
+        </div>
+    </section>
+    <section id="alert" data-bind="visible: app.alertsList().length > 0">
+        <div class="container" style="max-width: 640px; margin: 0 auto">
+            <h2 class="text-success text-center">My Alerts</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 20px"></th>
+                        <th>Keywords</th>
+                        <th class="text-right">Target price</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: app.alertsList">
+                    <tr>
+                        <td data-bind="visible: keywords">
+                            <i class="pull-left text-success fa fa-bell"
+                               data-bind="visible: notified"></i>
+                            <i class="pull-left text-warning fa fa-clock-o"
+                               data-bind="visible: !notified"></i>
+                        </td>
+                        <td data-bind="text: keywords"></td>
+                        <td class="text-right">
+                            <span data-bind="text: $parent.app.formatCurrency(price)"></span>
+                            <a href="#" class="text-danger fa fa-times" style="text-decoration: none"
+                               data-bind="click: $parent.app.deleteAlertConfirm"
+                               data-toggle="modal"
+                               data-target="#modal-delete"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="text-center" id="search">
+        <div class="container" style="max-width: 500px; margin: 0 auto">
+            <h2 class="text-success">Search</h2>
+            <p>What's the product you are looking for? Enter the keywords to find the product you would like to track. Try to be as specific as possible.</p>
+            <form data-bind="submit: app.search">
+                <div class="input-group has-success">
+                    <input type="text"
+                           id="input-search"
+                           class="form-control"
+                           data-bind="value: app.keywords, disable: app.searching" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success" data-bind="disable: app.searching">
+                            <i class="fa fa-search" data-bind="visible: !app.searching()"></i>
+                            <i class="fa fa-spinner fa-spin" data-bind="visible: app.searching"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <div class="row" data-bind="foreach: app.searchResultList, visible: app.searchItem" style="padding-top: 10px" id="result">
+                <div class="col-xs-4">
+                    <img data-bind="attr: { src: image }" style="width: 100%" />
+                </div>
+                <div class="col-xs-8">
+                    <p class="text-primary" data-bind="text: title"></p>
+                    <p>
+                        <h3 class="text-success" data-bind="text: formattedPrice"></h3>
+                    </p>
+                    <p>
+                        <a href="#" data-bind="attr: { href: url }" target="_blank">View Details</a>
+                    </p>
+                    <p>
+                        <a href="#" class="btn btn-success" data-bind="click: function(){$parent.app.scrollTo('#target')}">Set target price</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="text-center" id="target" data-bind="visible: app.searchItem">
+        <div class="container" style="max-width: 500px; margin: 0 auto">
+            <h2 class="text-success">Set a target price</h2>
+            <p>What's your target price for this item? You can set a target price below the current price and we will send you an email notification when the price of this product is the same or lower than your target price.</p>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text"
+                       class="form-control"
+                       data-bind="value: app.price, disable: app.creating" />
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" data-bind="foreach: app.discounts">
+                        <li>
+                            <a href="#" data-bind="click: $parent.app.setDiscount">
+                                <span data-bind="text: $parent.app.formatCurrency($data)"></span>
+                                (<span data-bind="text: ($index()+1) + '0% off'"></span>)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-danger" data-bind="visible: !app.validPrice()" style="max-width: 350px; margin: 0 auto">
+                The target price you set is invalid. It must be a number that is lower than the current item price.
+            </p>
+            <div data-bind="visible: !auth.email()">
+                <p>
+                    Sign-in or create a FREE account to access all the <span class="logo">BuyLater</span> features.
+                </p>
+                <button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#modal-login">
+                    Sign-in / create account
+                </button>
+            </div>
+            <p>
+                <button type="button"
+                        class="btn btn-success"
+                        data-bind="visible: auth.email, click: app.addAlert, disable: app.adding() || !app.price() || !app.validPrice()">
+                    Create alert
+                    <i class="fa fa-spinner fa-spin" data-bind="visible: app.adding"></i>
+                </button>
+            </p>
+        </div>
+    </section>
+    <section id="how">
+        <div class="container">
+            <h2 class="text-success text-center">How does it work?</h2>
+            <div class="row visible-xs">
+                <div class="col-xs-4 text-center">
+                    <h4 class="fa fa-2x fa-search text-warning"></h4>
+                </div>
+                <div class="col-xs-7">
+                    <h4>Search for Product</h4>
+                    <p>
+                        Find the product you want to track using keywords
+                    </p>
+                </div>
+            </div>
+            <div class="row visible-xs">
+                <div class="col-xs-4 text-center">
+                    <h4 class="fa fa-2x fa-usd text-warning"></h4>
+                </div>
+                <div class="col-xs-7">
+                    <h4>Set Price</h4>
+                    <p>
+                        Set a target price of when to be notified
+                    </p>
+                </div>
+            </div>
+            <div class="row visible-xs">
+                <div class="col-xs-4 text-center">
+                    <h4 class="fa fa-2x fa-envelope text-warning"></h4>
+                </div>
+                <div class="col-xs-7">
+                    <h4>Alert Email</h4>
+                    <p>
+                        Receive an email when the produce price drops!
+                    </p>
+                </div>
+            </div>
+            <div class="row hidden-xs text-center">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-2">
+                            <h4 class="fa fa-2x fa-search text-warning"></h4>
+                        </div>
+                        <div class="col-sm-12 col-md-10 col-md-offset-2">
+                            <h4>Search for Product</h4>
+                            <p>
+                                Find the product you want to track using keywords
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-2">
+                            <h4 class="fa fa-2x fa-usd text-warning"></h4>
+                        </div>
+                        <div class="col-sm-12 col-md-10 col-md-offset-2">
+                            <h4>Set Price</h4>
+                            <p>
+                                Set a target price of when to be notified
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-2">
+                            <h4 class="fa fa-2x fa-envelope text-warning"></h4>
+                        </div>
+                        <div class="col-sm-12 col-md-10 col-md-offset-2">
+                            <h4>Alert Email</h4>
+                            <p>
+                                Receive an email when the produce price drops!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 40px 0" class="text-center">
+                <button type="button" class="btn btn-success" data-bind="click: function(){app.scrollTo('#search')}">Start Searching!</button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <section class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="logo" style="color: white; font-size: 30px">BuyLater</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p style="font-size: 14px">Track the price of items and get notified when the price drops to your target price</p>
+                </div>
+                <div class="col-sm-6">
+                    <p class="text-right" style="font-size: 14px">
+                        © 2015 BuyLater<br />All Rights Reserved
+                    </p>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <div class="modal fade" id="modal-login">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Social provider login</h4>
+                </div>
+                <div class="modal-body" data-bind="template: { name: 'template-login' }"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Remove this alert?</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-dismiss="modal"
+                            data-bind="click: app.deleteAlert">
+                        Yes
+                    </button>
+                    <button type="button"
+                            class="btn"
+                            data-dismiss="modal">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="template-login">
+        <p>
+            Sign in to a social provider to create your FREE BuyLater account to help you track product prices.<br />
+            <div style="margin-top: 10px;">Note that future price notifications and updates will be sent to the email associated with your social provider.</div>
+        </p>
+        <p>
+            <button type="button"
+                    class="btn"
+                    data-dismiss="modal"
+                    data-bind="click: auth.googleSignIn"
+                    style="border: 0 solid #ab2b1d; background-color: #bf3727; color: white">
+                <i class="fa fa-google"></i>
+                Sign In with Google
+            </button>
+        </p>
+    </script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.sidr/1.2.1/jquery.sidr.js"></script>
+
+    <script src="Scripts/bl.appSettings.js"></script>
+    <script src="Scripts/bl.cache.js"></script>
+    <script src="Scripts/bl.authentication.js"></script>
+    <script src="Scripts/bl.app.js"></script>
+
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log("Name: " + profile.getName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log("User signed out.");
+            });
+        }
+
+        function onGoogleLoad() {
+            bl.auth.onGoogleLoad();
+        }
+
+        $("#menu").sidr();
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
+</body>
+</html>
