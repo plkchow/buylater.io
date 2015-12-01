@@ -9,3 +9,4 @@ var bl;
     bl.AppSettings = AppSettings;
     bl.appSettings = new AppSettings();
 })(bl || (bl = {}));
+//# sourceMappingURL=bl.appSettings.js.map

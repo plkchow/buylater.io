@@ -39,10 +39,12 @@ var bl;
             });
         }
         App.prototype.init = function () {
+            // test server availability
             $.get(bl.appSettings.baseUrl + "/ping")
                 .done(function (result) {
                 console.log("Ping to api server: " + result);
             });
+            // valid token
             $(document).ajaxSend(function (event, xhr, settings) {
                 if (bl.cache.getToken()) {
                     xhr.setRequestHeader("Authorization", "Bearer " + bl.cache.getToken());
@@ -56,6 +58,7 @@ var bl;
                 }
             });
             if (bl.cache.getToken()) {
+                // Restore previous session
                 bl.app.getAlerts();
             }
             else {
@@ -164,8 +167,9 @@ var bl;
     bl.App = App;
     bl.app = new App();
     window.onload = function () {
-        ko.applyBindings({ app: bl.app, auth: bl.auth });
+        ko.applyBindings({ app: bl.app, auth: bl.auth, contact: bl.contact });
         bl.app.init();
         $("body").tooltip();
     };
 })(bl || (bl = {}));
+//# sourceMappingURL=bl.app.js.map

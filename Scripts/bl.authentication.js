@@ -6,6 +6,7 @@ var bl;
         }
         Authentication.prototype.signout = function () {
             bl.auth.email("");
+            bl.contact.email("");
             bl.app.alertsList.removeAll();
             bl.cache.removeEmail();
             bl.cache.removeToken();
@@ -32,8 +33,10 @@ var bl;
             var data = { provider: provider, token: token };
             $.get(bl.appSettings.baseUrl + "/accounts/token", data)
                 .done(function (result) {
-                bl.auth.email(result.userName);
-                bl.cache.setEmail(result.userName);
+                var username = result.userName;
+                bl.auth.email(username);
+                bl.contact.email(username);
+                bl.cache.setEmail(username);
                 bl.cache.setToken(result.access_token);
                 bl.app.getAlerts();
             });
@@ -53,3 +56,4 @@ var bl;
     bl.Authentication = Authentication;
     bl.auth = new Authentication();
 })(bl || (bl = {}));
+//# sourceMappingURL=bl.authentication.js.map

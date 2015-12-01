@@ -32,6 +32,9 @@
         <div>
             <a href="#" data-bind="click: function(){app.scrollTo('#how')}">How Does It Work?</a>
         </div>
+        <div>
+            <a href="#" data-bind="click: function(){app.scrollTo('#contact')}">Contact us</a>
+        </div>
         <div data-bind="visible: auth.email">
             <a href="#" data-bind="click: auth.signout">Sign Out</a>
         </div>
@@ -259,6 +262,26 @@
             </div>
         </div>
     </section>
+    <section id="contact">
+        <div class="container" style="max-width: 400px">
+            <h2 class="text-success text-center">Contact us</h2>
+            <p>Got questions? Comments? Sugestions? We'd like to hear from you!</p>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email address" data-bind="value: contact.email">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" placeholder="Message" data-bind="value: contact.message"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="button" 
+                        class="btn btn-success"
+                        data-bind="click: contact.send, disable: !contact.email() || !contact.message() || contact.sending()">
+                        Send
+                        <i class="fa fa-spinner fa-spin" data-bind="visible: contact.sending"></i>
+                </button>
+            </div>
+        </div>
+    </section>
     <footer>
         <section class="container">
             <div class="row">
@@ -313,10 +336,10 @@
         </div>
     </div>
     <script type="text/html" id="template-login">
-        <p>
+        <small>
             Sign in to a social provider to create your FREE BuyLater account to help you track product prices.<br />
             <div style="margin-top: 10px;">Note that future price notifications and updates will be sent to the email associated with your social provider.</div>
-        </p>
+        </small>
         <p>
             <button type="button"
                     class="btn"
@@ -335,8 +358,9 @@
 
     <script src="Scripts/bl.appSettings.js"></script>
     <script src="Scripts/bl.cache.js"></script>
-    <script src="Scripts/bl.authentication.js"></script>
+    <script src="Scripts/bl.authentication.js"></script>    
     <script src="Scripts/bl.app.js"></script>
+    <script src="Scripts/bl.contact.js"></script>
 
     <script>
         function onSignIn(googleUser) {
