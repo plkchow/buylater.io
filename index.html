@@ -273,11 +273,11 @@
                 <textarea class="form-control" rows="5" placeholder="Message" data-bind="value: contact.message"></textarea>
             </div>
             <div class="text-center">
-                <button type="button" 
+                <button type="button"
                         class="btn btn-success"
                         data-bind="click: contact.send, disable: !contact.email() || !contact.message() || contact.sending()">
-                        Send
-                        <i class="fa fa-spinner fa-spin" data-bind="visible: contact.sending"></i>
+                    Send
+                    <i class="fa fa-spinner fa-spin" data-bind="visible: contact.sending"></i>
                 </button>
             </div>
         </div>
@@ -358,7 +358,7 @@
 
     <script src="Scripts/bl.appSettings.js"></script>
     <script src="Scripts/bl.cache.js"></script>
-    <script src="Scripts/bl.authentication.js"></script>    
+    <script src="Scripts/bl.authentication.js"></script>
     <script src="Scripts/bl.app.js"></script>
     <script src="Scripts/bl.contact.js"></script>
 
@@ -383,6 +383,18 @@
         }
 
         $("#menu").sidr();
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-71026503-1', 'auto');
+        ga('send', 'pageview');
+
     </script>
     <script src="https://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
 </body>
