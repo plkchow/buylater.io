@@ -68,6 +68,9 @@ var bl;
             $("#btn-menu").click(function () {
                 $("#menu").toggleClass("hidden", 500);
             });
+            $("#menu a").click(function () {
+                $("#menu").addClass("hidden");
+            });
         };
         App.prototype.search = function (d, e) {
             if (!bl.app.keywords()) {
@@ -155,7 +158,6 @@ var bl;
             }
         };
         App.prototype.scrollTo = function (id) {
-            $("#menu").addClass("hidden");
             $("#html,body").animate({
                 scrollTop: $(id).offset().top + "px"
             });
