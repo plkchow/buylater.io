@@ -34,7 +34,6 @@ header {
     top: 0;
     z-index: 999;
     width: 100%;
-    height: 55px;
     background: white;
     padding: 15px;
 }
@@ -75,28 +74,29 @@ section {
     background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/concrete_seamless.png);
 }
 
-.sidr ul, .sidr ul li {
-    border-top: 0;
-    border-bottom: 0;
+#menu div {
+    padding: 5px 0;
 }
 
-    .sidr ul li a {
-        color: #18bc9c;
-    }
-
-    .sidr ul li:hover > a, .sidr ul li:hover > span, .sidr ul li.active > a, .sidr ul li.active > span, .sidr ul li.sidr-class-active > a, .sidr ul li.sidr-class-active > span {
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    }
-
-#sidr {
-    padding: 10px;
+#menu-top .dropdown .list-group {
+    border: 1px solid #ddd;
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 0;
+    min-width: 150px;
 }
-
-    #sidr > div {
-        padding: 5px;
-    }
+#menu-top .dropdown .list-group .list-group-item {
+    color: #18bc9c;
+}
+#menu-top .dropdown .list-group .list-group-item:hover {
+    text-decoration: underline;
+    background: #eee;
+}
+#menu-top .dropdown:hover .list-group {
+    display: block;
+    margin-top: 0;
+}
 
 footer {
     background: #666666;

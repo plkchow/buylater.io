@@ -10,6 +10,7 @@ var bl;
             this.alertsList = ko.observableArray([]);
             this.searching = ko.observable(false);
             this.adding = ko.observable(false);
+            this.menu = ko.observable(false);
             this.searchItem = ko.computed(function () {
                 if (!_this.searchResultList() || _this.searchResultList().length <= 0)
                     return null;
@@ -64,6 +65,9 @@ var bl;
             else {
                 bl.app.onPreloadComplete();
             }
+            $("#btn-menu").click(function () {
+                $("#menu").toggleClass("hidden", 500);
+            });
         };
         App.prototype.search = function (d, e) {
             if (!bl.app.keywords()) {
@@ -151,10 +155,9 @@ var bl;
             }
         };
         App.prototype.scrollTo = function (id) {
+            $("#menu").addClass("hidden");
             $("#html,body").animate({
                 scrollTop: $(id).offset().top + "px"
-            }, "slow", "swing", function () {
-                $.sidr("close", "sidr");
             });
         };
         App.prototype.onPreloadComplete = function () {
