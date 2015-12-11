@@ -113,9 +113,9 @@ var bl;
                     data: JSON.stringify(data),
                     contentType: "application/json",
                     success: function (success) {
+                        toastr.success("Alert created.");
                         bl.app.price("");
                         bl.app.alertsList.push(data);
-                        bl.app.scrollTo("#alert");
                     },
                     complete: function () {
                         bl.app.adding(false);

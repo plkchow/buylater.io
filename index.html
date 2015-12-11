@@ -9,9 +9,9 @@
 
     <title>BuyLater - Get Notified When Product Price Drops</title>
 
-    <link href="https://bootswatch.com/flatly/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/jquery.sidr/1.2.1/stylesheets/jquery.sidr.light.css" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://bootswatch.com/flatly/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="Content/app.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -24,7 +24,8 @@
     <header>
         <div class="row">
             <div class="col-xs-10 col-sm-3">
-                <span class="logo" style="font-size: 20px">BuyLater <sup><small>BETA</small></sup></span>
+                <span class="logo" style="font-size: 20px">BuyLater</span>
+                <sup><small>BETA</small></sup>
             </div>
             <div class="col-xs-2 col-sm-9">
                 <div class="pull-right visible-xs">
@@ -174,7 +175,7 @@
         <div class="container" style="max-width: 500px; margin: 0 auto">
             <h2 class="text-success">Set a target price</h2>
             <p>What's your target price for this item? You can set a target price below the current price and we will send you an email notification when the price of this product is the same or lower than your target price.</p>
-            <div class="input-group">
+            <div class="input-group has-success">
                 <span class="input-group-addon">$</span>
                 <input type="text"
                        class="form-control"
@@ -208,7 +209,7 @@
             <p>
                 <button type="button"
                         class="btn btn-success"
-                        data-bind="visible: auth.email, click: app.addAlert, disable: app.adding() || !app.price() || !app.validPrice()">
+                        data-bind="visible: auth.email, click: app.addAlert, disable: app.adding()">
                     Create alert
                     <i class="fa fa-spinner fa-spin" data-bind="visible: app.adding"></i>
                 </button>
@@ -310,7 +311,7 @@
             <div class="text-center">
                 <button type="button"
                         class="btn btn-success"
-                        data-bind="click: contact.send, disable: !contact.email() || !contact.message() || contact.sending()">
+                        data-bind="click: contact.send, disable: contact.sending()">
                     Send
                     <i class="fa fa-spinner fa-spin" data-bind="visible: contact.sending"></i>
                 </button>
@@ -386,10 +387,10 @@
             </button>
         </p>
     </script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.sidr/1.2.1/jquery.sidr.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script src="Scripts/bl.appSettings.js"></script>
     <script src="Scripts/bl.cache.js"></script>
@@ -429,6 +430,6 @@
         ga("send", "pageview");
 
     </script>
-    <script src="https://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
+    <script src="http://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
 </body>
 </html>
