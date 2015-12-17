@@ -51,8 +51,9 @@ var bl;
                     xhr.setRequestHeader("Authorization", "Bearer " + bl.cache.getToken());
                 }
                 // Google Analytics
-                var url = settings.url.replace(location.origin, "");
-                ga("send", "pageView", url);
+                var page = settings.url.replace(bl.appSettings.baseUrl, "");
+                ga("set", "page", page);
+                ga("send", "pageView");
             });
             $(document).ajaxError(function (event, xhr, settings) {
                 if (xhr.status == 401) {
