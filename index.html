@@ -10,7 +10,7 @@
     <title>BuyLater - Get Notified When Product Price Drops</title>
 
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="Content/app.css" rel="stylesheet" type="text/css" />
 </head>
@@ -25,7 +25,6 @@
         <div class="row">
             <div class="col-xs-10 col-sm-3">
                 <span class="logo text-primary" style="font-size: 20px">BuyLater</span>
-                <sup><small>BETA</small></sup>
             </div>
             <div class="col-xs-2 col-sm-9">
                 <div class="pull-right visible-xs">
@@ -39,7 +38,7 @@
                         <a href="#how">How It Works?</a>
                     </li>
                     <li>
-                        <a href="#contact"">Contact Us</a>
+                        <a href="#contact" ">Contact Us</a>
                     </li>
                     <li data-bind="visible: !auth.email()">
                         <a href="#" data-toggle="modal" data-target="#modal-login">Sign In</a>
@@ -136,7 +135,7 @@
     </section>
     <section class="text-center" id="search">
         <div class="container" style="max-width: 500px; margin: 0 auto">
-            <h2 class="text-primary">Search</h2>
+            <h2 class="text-primary">Search for a Product</h2>
             <p>What's the product you are looking for? Enter the keywords to find the product you would like to track. Try to be as specific as possible.</p>
             <form data-bind="submit: app.search">
                 <div class="input-group has-primary">
@@ -371,21 +370,31 @@
             </div>
         </div>
     </div>
-    <script type="text/html" id="template-login">
-        <small>
-            Sign in to a social provider to create your FREE BuyLater account to help you track product prices.<br />
-            <div style="margin-top: 10px;">Note that future price notifications and updates will be sent to the email associated with your social provider.</div>
-        </small>
-        <p>
-            <button type="button"
-                    class="btn"
-                    data-dismiss="modal"
-                    data-bind="click: auth.googleSignIn"
-                    style="border: 0 solid #ab2b1d; background-color: #bf3727; color: white">
-                <i class="fa fa-google"></i>
-                Sign In with Google
-            </button>
-        </p>
+<script type="text/html" id="template-login">
+    <small>
+        Sign in to a social provider to create your FREE BuyLater account to help you track product prices.<br/>
+        <div style="margin-top: 10px;">Note that future price notifications and updates will be sent to the email associated with your social provider.</div>
+    </small>
+    <p>
+        <button type="button"
+                class="btn"
+                data-dismiss="modal"
+                data-bind="click: auth.googleSignIn"
+                style="background-color: #bf3727; color: white">
+            <i class="fa fa-google"></i>
+            Sign In with Google
+        </button>
+    </p>
+    <p>
+        <button type="button"
+                class="btn"
+                data-dismiss="modal"
+                data-bind="click: auth.facebookSignIn"
+                style="background-color: #354c8c; color: white">
+            <i class="fa fa-facebook"></i>
+            Sign In with Facebook
+        </button>
+    </p>
     </script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -428,6 +437,29 @@
     <script async src='//www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
 
-<script src="http://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
+    <!-- Facebook Login -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "180735518946370",
+                cookie: true,  // enable cookies to allow the server to access
+                // the session
+                xfbml: true,  // parse social plugins on this page
+                version: "v2.2" // use version 2.2
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, "script", "facebook-jssdk"));
+    </script>
+    <!-- End Facebook Login -->
+
+    <script src="http://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
 </body>
 </html>

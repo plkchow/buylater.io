@@ -29,6 +29,21 @@ var bl;
                 bl.auth.getBearerToken("google", idToken);
             });
         };
+        Authentication.prototype.facebookSignIn = function () {
+            var fb = window.FB;
+            fb.getLoginStatus(function (response) {
+                if (response.status === "connected") {
+                    bl.auth.getBearerToken("facebook", response.authResponse.accessToken);
+                }
+                else {
+                    fb.login(function (response) {
+                        if (response.authResponse) {
+                            bl.auth.getBearerToken("facebook", response.authResponse.accessToken);
+                        }
+                    }, { scope: "email" });
+                }
+            });
+        };
         Authentication.prototype.getBearerToken = function (provider, token) {
             var data = { provider: provider, token: token };
             $.get(bl.appSettings.baseUrl + "/accounts/token", data)

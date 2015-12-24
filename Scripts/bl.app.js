@@ -50,10 +50,6 @@ var bl;
                 if (bl.cache.getToken()) {
                     xhr.setRequestHeader("Authorization", "Bearer " + bl.cache.getToken());
                 }
-                // Google Analytics
-                var page = settings.url.replace(bl.appSettings.baseUrl, "");
-                ga("set", "page", page);
-                ga("send", "pageView");
             });
             $(document).ajaxError(function (event, xhr, settings) {
                 if (xhr.status == 401) {
@@ -88,6 +84,9 @@ var bl;
             }).always(function () {
                 bl.app.searching(false);
             });
+            // Google Analytics
+            ga("set", "page", "/search?keywords=" + bl.app.keywords());
+            ga("send", "pageView");
         };
         App.prototype.getAlerts = function () {
             $.ajax({
