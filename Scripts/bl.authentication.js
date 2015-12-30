@@ -40,7 +40,7 @@ var bl;
                         if (response.authResponse) {
                             bl.auth.getBearerToken("facebook", response.authResponse.accessToken);
                         }
-                    }, { scope: "email" });
+                    }, { scope: "public_profile, email" });
                 }
             });
         };
