@@ -85,7 +85,7 @@ var bl;
                 bl.app.searching(false);
             });
             // Google Analytics
-            ga("send", "pageView", "/search?keywords=" + bl.app.keywords());
+            ga("send", "pageview", "/search?keywords=" + bl.app.keywords());
         };
         App.prototype.getAlerts = function () {
             $.ajax({
